@@ -8,7 +8,7 @@ const port = process.env.PORT || 8881;
 
 app.use(express.static("site"));
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile("index.html", {
         root: __dirname
     })
