@@ -23,7 +23,15 @@
 
         usernameInput.value = localStorage.getItem('username');
 
-        var ws = new WebSocket(`ws://${(new URL(document.URL).host)}/ws`);
+        var url = "";
+
+        if (new URL(document.URL).hostname == "localhost") {
+            url = `ws://${(new URL(document.URL).host)}`
+        } else {
+            url = `wss://${(new URL(document.URL).host)}`
+        }
+
+        var ws = new WebSocket(`${url}/ws`);
 
         ws.onopen = () => {
             console.log('connected');
