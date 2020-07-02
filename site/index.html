@@ -61,7 +61,6 @@
 
         ws.onmessage = async function (event) {
             var message = event.data;
-            message = message.split(">").join("&gt;").split("<").join("&lt;")
 
             if (message.slice(0, 5) == "msgs:") {
                 var arr = message.slice(5).split(",");
