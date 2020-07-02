@@ -51,9 +51,9 @@ wss.on("connection", (ws) => {
 
             var msgText = `<b>${ws.clientName}</b>: ${newMsg}`;
 
-            //wss.broadcast("msg:" + msgText)
-            ws.send("msg:" + msgText)
-            //messages.push(msgText)
+            wss.broadcast("msg:" + msgText)
+            //ws.send("msg:" + msgText)
+            messages.push(msgText)
 
         } else if (message.split(",")[0] === "clear" && message.split(",")[1] === process.env.CHATPASSWORD) {
             messages = []
