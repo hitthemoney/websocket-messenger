@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket Testing</title>
+</head>
+
+<body>
+    <div id="signInHolder">
+        <input id="usernameInput" placeholder="Username"><button onclick="setUsername(usernameInput.value)">Sign
+            In!</button></div>
+    <div id="messageHolder" style="display: none;">
+        <input id="input" placeholder="Message"><button onclick="sendMessage(input.value)">Send Message!</button>
+        <div id="messages"></div>
+        <button onclick="clearChat(prompt('Chat Password'))">Clear Chat</button>
+    </div>
+    <script>
+        var messages = document.getElementById("messages");
+        var input = document.getElementById("input");
+        var usernameInput = document.getElementById("usernameInput");
+
+        usernameInput.value = localStorage.getItem('username');
+
+        var ws = new WebSocket(`ws://${(new URL(document.URL).host)}/ws`);
+
+        ws.onopen = () => {
+            console.log('connected');
+        };
+
+        ws.onmessage = async function (event) {
+            var message = event.data;
+
+            if (message.slice(0, 5) == "msgs:") {
+                var arr = message.slice(5).split(",");
+
+                for (i in arr) {
+                    var elem = document.createElement("p")
+                    elem.innerHTML = arr[i];
+                    messages.appendChild(elem)
+                }
+            } else if (message.slice(0, 4) == "msg:") {
+                var elem = document.createElement("p")
+                elem.innerHTML = message.slice(4);
+                messages.appendChild(elem)
+            } else if (message.slice(0, 6) == "clear:") {
+                messages.innerHTML = "<p>Chat Cleared by <b>" + message.slice(6) + "</b> at " + (new Date).toLocaleString() + "</p>"
+            }
+        };
+
+        function sendMessage(message) {
+            ws.send("sendmsg," + message);
+            input.value = ""
+        }
+
+        function setUsername(username) {
+            localStorage.setItem('username', username);
+            ws.send("username," + username);
+            document.getElementById("messageHolder").style.display = "initial";
+            document.getElementById("signInHolder").innerHTML = `<p>Signed in as <b>${username}</b></p>`;
+            ws.send("getmsgs,");
+        }
+
+        function clearChat(password) {
+            ws.send("clear," + password);
+        }
+    </script>
+</body>
+
+</html>
