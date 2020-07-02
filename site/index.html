@@ -4,7 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Websocket Testing</title>
+    <title>Money Messenger</title>
+    <meta name="description" content="A messenger made using websockets">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="twitter:title" content="">
+    <meta name="og:title" content="">
+    <meta name="og:url" content="">
+    <meta name="og:site_name" content="">
+    <meta name="og:type" content="website">
+    <style>
+        * {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        body {
+            zoom: 2.25;
+            -moz-transform: scale(2.25);
+            -moz-transform-origin: 0 0;
+        }
+        input {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,7 +75,8 @@
                 elem.innerHTML = message.slice(4);
                 messages.appendChild(elem)
             } else if (message.slice(0, 6) == "clear:") {
-                messages.innerHTML = "<p>Chat Cleared by <b>" + message.slice(6) + "</b> at " + (new Date).toLocaleString() + "</p>"
+                messages.innerHTML = "<p>Chat Cleared by <b>" + message.slice(6) + "</b> at " + (new Date)
+                    .toLocaleString() + "</p>"
             }
         };
 
