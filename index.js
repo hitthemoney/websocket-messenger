@@ -31,6 +31,7 @@ wss.on("connection", (ws) => {
     ws.on("close", () => console.log(`[Server] ${ws.clientName} disconnected.`))
 
     ws.on("message", (message) => {
+        message = message.split(">").join("&gt;").split("<").join("&lt;")
 
         if (message.split(",")[0] === "username") {
             ws.clientName = message.split(",")[1];
