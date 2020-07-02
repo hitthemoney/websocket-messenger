@@ -45,6 +45,8 @@ wss.on("connection", (ws) => {
             var newMsg = message.split(",")[1]
 
             console.log(`[Server] Received message from ${ws.clientName}: %s`, newMsg)
+            
+            newMsg = newMsg.split(">").join("&gt;").split("<").join("&lt;")
 
             var msgText = `<b>${ws.clientName}</b>: ${newMsg}`;
 
