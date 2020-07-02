@@ -51,7 +51,7 @@ wss.on("connection", (ws) => {
             wss.broadcast("msg:" + msgText)
             messages.push(msgText)
 
-        } else if (message.split(",")[0] === "clear" && message.split(",")[1] === process.env.PORT) {
+        } else if (message.split(",")[0] === "clear" && message.split(",")[1] === process.env.CHATPASSWORD) {
             messages = []
 
             console.log(`[Server] ${ws.clientName} cleared the chat at ${(new Date).toLocaleString()}`)
