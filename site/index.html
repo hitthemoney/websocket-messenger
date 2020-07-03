@@ -59,16 +59,40 @@
             top: 5px;
             margin-right: 5px;*/
         }
+
+        #title span {
+            font-size: 0.5em;
+            white-space: pre;
+            /*color: rgb(103, 117, 131);*/
+            font-weight: normal;
+        }
+
+        a {
+            color: rgb(68, 106, 219) !important;
+        }
+
+        #footer {
+            font-size: 0.5em;
+            position: absolute;
+            bottom: 7.5px;
+            right: 7.5px;
+        }
+
+        #title {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <div id="signInHolder">
-        <input id="usernameInput" placeholder="Username"><button onclick="setUsername(usernameInput.value)">Sign
+        <h3 id="title">Money Messenger<span>  by <a href="https://hitthemoney.com">hitthemoney</a></span></h3>
+        <input onkeydown="enterCheck(document.getElementById('snBtn'))" id="usernameInput" placeholder="Username"><button id="snBtn" onclick="setUsername(usernameInput.value)">Sign
             In!</button></div>
     <div id="messageHolder" style="display: none;">
         <div id="sendMsgHolder">
-            <input onkeydown="enterCheck()" id="input" placeholder="Message"><!--</textarea>--><button id="sendMsgBtn" onclick="sendMessage(input.value)">Send Message!</button>
+            <input onkeydown="enterCheck(sendMsgBtn)" id="input" placeholder="Message">
+            <!--</textarea>--><button id="sendMsgBtn" onclick="sendMessage(input.value)">Send Message!</button>
         </div>
         <div
             style="padding: 7.5px; padding-top: 0px; width: 96.25%; position: absolute; top: 75px; bottom: 35px; background-color: rgba(0, 0, 0, 0.082); word-wrap: break-word;">
@@ -79,6 +103,7 @@
             <button onclick="clearChat()">Clear Chat</button>
         </div>
     </div>
+    <footer id="footer">Money Messenger by <a href="https://hitthemoney.com">hitthemoney</a></footer>
     <script src="js/index.js"></script>
 </body>
 

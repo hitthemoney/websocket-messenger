@@ -107,9 +107,13 @@ ws.onmessage = async function (event) {
 };
 
 function sendMessage(message) {
-    if (message.split(" ").join("").split("\n").join("") !== "") {
-        ws.send("sendmsg," + message);
-        input.value = ""
+    if (message.length > 249) {
+        alert("Auto Mod WARN\nsending too big of a message (limit 250 characters)")
+    } else {
+        if (message.split(" ").join("").split("\n").join("") !== "") {
+            ws.send("sendmsg," + message);
+            input.value = ""
+        }
     }
 }
 
@@ -150,7 +154,7 @@ function copyStr(str, elId) {
 
     elem2 = document.getElementById(elId)
 
-    if (elem2 !== undefined || elem2 !== null) {
+    if (elem2 !== null) {
         var oldMsg = elem2.innerText.toString()
         elem2.innerText = 'Copied';
         setTimeout(function () {
@@ -191,8 +195,8 @@ function kickUser(userId, reason) {
     ws.send("kick," + userId + "," + reason)
 }
 
-function enterCheck() {
+function enterCheck(elem) {
     if (event.key === "Enter" && event.shiftKey === false) {
-        sendMsgBtn.click();
+        elem.click();
     }
 }

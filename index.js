@@ -65,6 +65,10 @@ wss.on("connection", (ws) => {
 
     ws.on("message", (message) => {
 
+        if (message.length > 249) {
+            autoModKick(ws, false, "sending too big of a message.")
+        }
+
         if (ws.lastTimeSent.toLocaleString() == (new Date).toLocaleString()) {
             ws.msgCount1++;
         } else {
@@ -81,8 +85,8 @@ wss.on("connection", (ws) => {
             autoModKick(ws)
         }*/
 
-        if (ws.msgCount1 >= 5) {
-            autoModKick(ws, false)
+        if (ws.msgCount1 >= 4) {
+            autoModKick(ws, false, "SENDING MESSAGES TO FAST!")
         }
 
         //console.log(ws.msgCount1, ws.msgCount5)
@@ -177,10 +181,10 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function autoModKick(ws, kickMod) {
+function autoModKick(ws, kickMod, reason) {
     if (kickMod || ws.isAdmin === false) {
-        ws.send(`kick:Auto Mod: You have been kicked from the chat, ${ws.clientName}.\nReason: SENDING MESSAGES TO FAST!`);
-        console.log(`[Server] Auto Mod kicked ${ws.clientName} at ${(new Date).toLocaleString()} for sending messages to fast`)
+        ws.send(`kick:Auto Mod: You have been kicked from the chat, ${ws.clientName}.\nReason: ${reason}`);
+        console.log(`[Server] Auto Mod kicked ${ws.clientName} at ${(new Date).toLocaleString()} for ${reason}`)
         ws.close();
     }
 }
