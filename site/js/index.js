@@ -107,7 +107,7 @@ ws.onmessage = async function (event) {
 };
 
 function sendMessage(message) {
-    if (message.split(" ").join("").split("\n").join !== "") {
+    if (message.split(" ").join("").split("\n").join("") !== "") {
         ws.send("sendmsg," + message);
         input.value = ""
     }
